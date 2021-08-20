@@ -1,32 +1,34 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TaskDto } from './task.dto';
-import { Task } from './task.entity';
+import { SubTasksDto } from './sub-tasks.dto';
+import { SubTasks } from './sub-tasks.entity';
 
 @Injectable()
-export class TaskService {
+export class SubTasksService {
+
     constructor(
-        @InjectRepository(Task)
-        private readonly repository: Repository<Task>,
+        @InjectRepository(SubTasks)
+        private readonly repository: Repository<SubTasks>,
       ) {}
-    
+
+
       async getAll() {
-        return await this.repository.find({join:{alias:'task', leftJoinAndSelect:{subTasks:'task.subTasks'}}});
+        return await this.repository.find();
       }
-    
+
       async getById(id: number) {
         const post = await this.repository.findOne(id);
         if (!post) throw new NotFoundException('Task does not exist');
         return post;
       }
     
-      async createOne(dto: TaskDto) {
+      async createOne(dto: SubTasksDto) {
         const task = this.repository.create(dto);
         return await this.repository.save(task);
       }
     
-      async editOne(id: number, dto: TaskDto) {
+      async editOne(id: number, dto: SubTasksDto) {
         const task = await this.repository.findOne(id);
     
         if (!task) throw new NotFoundException('Task does not exist');

@@ -1,18 +1,15 @@
 import { NivelPrioridad } from "src/enums/prioridad.enum";
 import { Status } from "src/enums/status.enum";
-import { SubTasks } from "src/sub-tasks/sub-tasks.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Task } from "src/task/task.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Task{
+export class SubTasks{
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     titulo: string;
-
-    @Column()
-    fechaCreacion: Date;
 
     @Column()
     descripcion: string;
@@ -23,6 +20,6 @@ export class Task{
     @Column()
     status: Status;
 
-    @OneToMany(() => SubTasks, subTasks => subTasks.task , {cascade:true})
-    subTasks: SubTasks[];
+    @ManyToOne(() => Task, task => task.subTasks, {onDelete:'CASCADE'})
+    task: Task;
 }
