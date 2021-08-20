@@ -9,6 +9,7 @@ export class SubTasksDto{
     @IsString()
     titulo: string;
 
+    @Length(15)
     @IsString()
     @IsOptional()
     descripcion: string;
