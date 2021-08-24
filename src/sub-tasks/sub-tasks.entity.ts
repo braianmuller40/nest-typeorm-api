@@ -10,6 +10,9 @@ export class SubTasks{
 
     @Column()
     titulo: string;
+    
+    @Column()
+    fechaCreacion: Date;
 
     @Column()
     descripcion: string;
@@ -20,6 +23,6 @@ export class SubTasks{
     @Column()
     status: Status;
 
-    @ManyToOne(() => Task, task => task.subTasks, {onDelete:'CASCADE'})
+    @ManyToOne(() => Task, task => task.subTasks)
     task: Task;
 }

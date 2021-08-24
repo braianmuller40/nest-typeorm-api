@@ -19,6 +19,13 @@ export class SubTasksController {
       const data = await this.service.getById(id);
       return { data };
     }
+
+    @Get('/findSubTaskofTask/:id')
+    async getSubTaskofTask(@Param('id', ParseIntPipe) id: number) {
+      console.log(id);
+      const data = await this.service.getSubTaskofTask(id);
+      return { data };
+    }
   
     @Post()
     async createPost(@Body() dto: SubTasksDto) {

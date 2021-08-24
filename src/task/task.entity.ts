@@ -23,6 +23,6 @@ export class Task{
     @Column()
     status: Status;
 
-    @OneToMany(() => SubTasks, subTasks => subTasks.task , {cascade:true})
+    @OneToMany(() => SubTasks, subTasks => subTasks.task)
     subTasks: SubTasks[];
 }

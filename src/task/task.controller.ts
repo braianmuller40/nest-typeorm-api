@@ -23,6 +23,7 @@ export class TaskController {
 
   @Post()
   async createPost(@Body() dto: TaskDto) {
+    console.log(dto);
     const data = await this.service.createOne(dto);
     return data;
   }

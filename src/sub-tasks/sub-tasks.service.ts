@@ -16,6 +16,15 @@ export class SubTasksService {
       async getAll() {
         return await this.repository.find();
       }
+      
+      async getSubTaskofTask(id:number) {
+        return await this.repository.find({
+          where:{
+            task:{ id: id},
+          },
+          relations: ["task"],
+        });
+      }
 
       async getById(id: number) {
         const post = await this.repository.findOne(id);

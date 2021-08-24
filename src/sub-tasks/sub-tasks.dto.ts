@@ -1,6 +1,8 @@
-import { IsEnum, IsOptional, IsString, Length } from "class-validator";
+import { Type } from "class-transformer";
+import { IsEnum, IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
 import { NivelPrioridad } from "src/enums/prioridad.enum";
 import { Status } from "src/enums/status.enum";
+import { Task } from "src/task/task.entity";
 
 
 export class SubTasksDto{
@@ -9,7 +11,10 @@ export class SubTasksDto{
     @IsString()
     titulo: string;
 
-    @Length(15)
+    @Type(()=> Date)
+    @IsOptional()
+    fechaCreacion: Date;
+
     @IsString()
     @IsOptional()
     descripcion: string;
@@ -19,5 +24,8 @@ export class SubTasksDto{
 
     @IsEnum(Status)
     status: Status;
+
+    @IsNotEmpty()
+     task:Task;
 
 }
