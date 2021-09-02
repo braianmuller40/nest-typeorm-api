@@ -1,53 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GenericService } from 'src/shared/abstract/genericService';
 import { Repository } from 'typeorm';
 import { SubTasksDto } from './sub-tasks.dto';
 import { SubTasks } from './sub-tasks.entity';
 
 @Injectable()
-export class SubTasksService {
+export class SubTasksService extends GenericService<SubTasks,SubTasksDto>{
 
     constructor(
-        @InjectRepository(SubTasks)
-        private readonly repository: Repository<SubTasks>,
-      ) {}
-
-
-      async getAll() {
-        return await this.repository.find();
-      }
-      
-      async getSubTaskofTask(id:number) {
-        return await this.repository.find({
-          where:{
-            task:{ id: id},
-          },
-          relations: ["task"],
-        });
-      }
-
-      async getById(id: number) {
-        const post = await this.repository.findOne(id);
-        if (!post) throw new NotFoundException('Task does not exist');
-        return post;
-      }
-    
-      async createOne(dto: SubTasksDto) {
-        const task = this.repository.create(dto);
-        return await this.repository.save(task);
-      }
-    
-      async editOne(id: number, dto: SubTasksDto) {
-        const task = await this.repository.findOne(id);
-    
-        if (!task) throw new NotFoundException('Task does not exist');
-    
-        const editedTask = Object.assign(task, dto);
-        return await this.repository.save(editedTask);
-      }
-    
-      async deleteOne(id: number) {
-        return await this.repository.delete(id);
+        @InjectRepository(SubTasks) readonly repository: Repository<SubTasks>) {
+          super(repository);
       }
 
 }
