@@ -13,4 +13,14 @@ export class SubTasksService extends GenericService<SubTasks,SubTasksDto>{
           super(repository);
       }
 
+    async getSubTaskofTask(id:number) {
+     return await this.repository.find({
+         where:{
+             task:{
+                 id:id
+                }
+            },relations:['task']
+        });
+     }
+    
 }

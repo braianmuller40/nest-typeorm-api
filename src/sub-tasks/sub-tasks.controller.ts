@@ -22,7 +22,6 @@ export class SubTasksController {
 
     @Get('/findSubTaskofTask/:id')
     async getSubTaskofTask(@Param('id', ParseIntPipe) id: number) {
-      console.log(id);
       const data = await this.service.getSubTaskofTask(id);
       return { data };
     }
